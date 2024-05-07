@@ -1,0 +1,7 @@
+创建项目
+npx create-react-app hotel-manager
+安装依赖
+npm i react-router-dom
+npm i axios
+npm i antd
+npm i sass
