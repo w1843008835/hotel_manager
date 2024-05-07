@@ -6,4 +6,5 @@ export const $login = async (params) => {
     console.log(params.password)
     let { data } = await axios.get('/login', { params })
     console.log(data)
+    return data
 }

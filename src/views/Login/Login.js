@@ -1,10 +1,27 @@
 import './Login.scss'
 import { Form, Button, Input } from 'antd'
 import { $login } from '../../api/adminAPI.js'
+import { notification } from 'antd'
+
 export default function Login() {
+
+    const [api, contextHolder] = notification.useNotification()
+    const openNotification = (type, description) => {
+        api[type]({
+            message: '系统提示', description
+        })
+    }
     let [form] = Form.useForm()
-    const onFinish = (values) => {
-        $login(values)
+    const onFinish = async (values) => {
+        let { message, success } = await $login(values)
+        if (success) {
+            openNotification('success', message)
+        } else {
+            openNotification('error', message)
+        }
+
+
+
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -74,6 +91,7 @@ export default function Login() {
                     </Button>
                 </Form.Item>
             </Form>
+            {contextHolder}
         </div>
     </div>
 }
